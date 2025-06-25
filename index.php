@@ -27,25 +27,26 @@ $conn->close();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TransPro</title>
+  <link rel="icon" href="userlogo.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f3f3f3;
+      background: #f0f0f0;
       margin: 0;
     }
 
     header {
-      background-color: #ddd;
+      background-color: #0d47a1;
       padding: 10px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      color: white;
     }
 
     .logo {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: bold;
     }
 
@@ -53,35 +54,36 @@ $conn->close();
       margin: 0 10px;
       text-decoration: none;
       font-weight: bold;
-      color: #333;
+      color: white;
     }
 
     nav a.active {
-      background-color: #ccc;
+      background-color: #1976d2;
       padding: 5px 10px;
       border-radius: 5px;
     }
 
-      .user-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: contain;
-}
+    .user-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
     .map-placeholder {
-      background: #ccc;
+      background: #e3f2fd;
       height: 200px;
       margin: 20px auto;
       width: 90%;
-      border: 2px solid #aaa;
-      border-radius: 5px;
+      border: 2px dashed #90caf9;
+      border-radius: 10px;
     }
 
     .box {
-      background: #eaeaea;
+      background: #1976d2;
+      color: white;
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 20px;
       width: 100%;
       max-width: 300px;
     }
@@ -90,21 +92,24 @@ $conn->close();
       margin: 5px;
       padding: 10px 20px;
       border: none;
-      background: #ccc;
+      background: #90caf9;
+      color: black;
       cursor: pointer;
       border-radius: 5px;
+      font-weight: bold;
     }
 
     .alerts div {
-      background: #ddd;
+      background: #64b5f6;
+      color: white;
       margin: 10px 0;
       padding: 10px;
-      border-radius: 5px;
+      border-radius: 8px;
     }
 
     .timestamp {
       font-size: 12px;
-      color: gray;
+      color: white;
       margin-top: 10px;
     }
 
@@ -112,7 +117,21 @@ $conn->close();
       text-align: center;
       margin-top: 50px;
       padding: 20px;
-      background-color: #f8f9fa;
+      background-color: #e3f2fd;
+    }
+
+     h3 {
+      color:rgb(255, 255, 255);
+      font-weight: bold;
+    }
+
+    h2 {
+     color: #0d47a1;
+      font-weight: bold; 47a1
+    }
+ 
+    select, button {
+      font-weight: bold;
     }
   </style>
 </head>
@@ -125,7 +144,7 @@ $conn->close();
       <a href="#">Live Status</a>
       <a href="#">Plan Trip</a>
       <a href="#">Contacts</a>
-      <a href="login.php" class="btn btn-sm btn-outline-danger ms-3">Logout</a>
+      <a href="login.php" class="btn btn-sm btn-outline-light ms-3">Logout</a>
     </nav>
     <img src="userlogo.png" class="user-icon" alt="User Icon">
   </header>
@@ -150,7 +169,7 @@ $conn->close();
         </select>
       </div>
       <div class="col-md-2">
-        <button type="submit" class="btn btn-primary w-100">Get Directions</button>
+        <button type="submit" class="btn btn-success w-100">Get Directions</button>
       </div>
     </form>
 
@@ -187,7 +206,6 @@ $conn->close();
   </footer>
 
 <?php
-// 🔁 Force logout after page load (refresh returns to login)
 session_unset();
 session_destroy();
 ?>
