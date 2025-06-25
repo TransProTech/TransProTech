@@ -26,20 +26,21 @@ $conn->close();
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f3f3f3;
+      background: #f0f0f0;
       margin: 0;
     }
 
     header {
-      background-color: #ddd;
+      background-color: #0d47a1;
       padding: 10px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      color: white;
     }
 
     .logo {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: bold;
     }
 
@@ -47,44 +48,72 @@ $conn->close();
       margin: 0 10px;
       text-decoration: none;
       font-weight: bold;
-      color: #333;
+      color: white;
     }
 
     nav a.active {
-      background-color: #ccc;
+      background-color: #1976d2;
       padding: 5px 10px;
       border-radius: 5px;
     }
 
-   .user-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: contain;
-}
-
+    .user-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
     .box {
-      background: #eaeaea;
+      background: #1976d2;
+      color: white;
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 15px;
       width: 100%;
       max-width: 400px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
     }
 
     footer {
       text-align: center;
       margin-top: 50px;
       padding: 20px;
-      background-color: #f8f9fa;
+      background-color: #e3f2fd;
     }
 
     .list-group-item {
       font-size: 14px;
+      background: #64b5f6;
+      color: white;
+      margin-bottom: 5px;
+      border: none;
+      border-radius: 5px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+      color: #0d47a1;
+      font-weight: bold;
     }
 
     h5 {
-      margin-bottom: 15px;
+      color:rgb(225, 229, 234);
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-outline-danger {
+      border-color: #ff5252;
+      color: #ff5252;
+    }
+
+    .btn-outline-danger:hover {
+      background-color: #ff5252;
+      color: white;
+    }
+
+     small.text-white {
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
     }
   </style>
 </head>
@@ -95,9 +124,8 @@ $conn->close();
   <nav>
     <a class="active" href="#">Dashboard</a>
     <a href="login.php" class="btn btn-sm btn-outline-danger ms-3">Logout</a>
-    </nav>
   </nav>
-<img src="userlogo.png" class="user-icon" alt="User Icon">
+  <img src="userlogo.png" class="user-icon" alt="User Icon">
 </header>
 
 <div class="container text-center py-4">
@@ -139,7 +167,7 @@ $conn->close();
           <?php while ($alert = $alerts->fetch_assoc()): ?>
             <li class="list-group-item">
               <?= htmlspecialchars($alert['message']) ?><br>
-              <small class="text-muted"><?= htmlspecialchars($alert['dateCreated']) ?></small>
+              <small class="text-white"><?= htmlspecialchars($alert['dateCreated']) ?></small>
             </li>
           <?php endwhile; ?>
         </ul>
@@ -154,7 +182,6 @@ $conn->close();
 </footer>
 
 <?php
-// 🔁 Force logout on refresh
 session_unset();
 session_destroy();
 ?>
