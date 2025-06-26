@@ -1,5 +1,3 @@
-<?php
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +5,7 @@
   <meta charset="UTF-8">
   <title>TransPro - Plan Trip</title>
 
+  <link rel="icon" href="userlogo.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -17,25 +16,38 @@
       margin: 0;
     }
 
-    .navbar {
-      background-color: #1c2b63;
-      color: white;
+    header {
+      background-color: #0d47a1;
+      padding: 10px 20px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 10px 40px;
-    }
-
-    .navbar a {
+      justify-content: space-between;
       color: white;
-      margin: 0 15px;
-      text-decoration: none;
     }
 
-    .active {
-      background-color: #6a7896;
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+    }
+
+    nav a.active {
+      background-color: #1976d2;
       padding: 5px 10px;
       border-radius: 5px;
+    }
+
+    .user-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
     }
 
     .custom-container {
@@ -66,10 +78,6 @@
       background-color: #dce6ff;
     }
 
-    .header {
-      padding: 20px;
-    }
-
     .rounded-form {
       background-color: #1c5fd5;
       padding: 20px;
@@ -84,24 +92,17 @@
 
 <body>
 
-  <div class="header bg-light border-top border-primary shadow-sm py-2 px-3">
-    <div class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
-        <img src="img/logo.png" alt="TransPro Logo" class="rounded-circle me-2" style="width: 40px; height: 40px;">
-        <span class="fw-bold fs-5 text-dark">TransPro</span>
-      </div>
-      <div>
-        <img src="img/adminlogo.png" alt="Admin Icon" class="rounded-circle" style="width: 40px; height: 40px;">
-      </div>
-    </div>
-  </div>
-
-  <div class="navbar">
-    <a href="index.php">Home</a>
-    <a href="live_status.php">Live Status</a>
-    <a class="active" href="plan_trip.php">Plan Trip</a>
-    <a href="contacts.php">Contacts</a>
-  </div>
+  <header>
+    <div class="logo">TransPro</div>
+    <nav>
+      <a href="index.php">Home</a>
+      <a href="live_status.php">Live Status</a>
+      <a class="active" href="#">Plan Trip</a>
+      <a href="contacts.php">Contacts</a>
+      <a href="login.php" class="btn btn-sm btn-outline-light ms-3">Logout</a>
+    </nav>
+    <img src="userlogo.png" class="user-icon" alt="User Icon">
+  </header>
 
   <div class="custom-container">
     <h2 class="mb-4 fw-semibold">Plan Your Trip</h2>
@@ -164,6 +165,10 @@
       </div>
     </div>
   </div>
+
+  <footer class="text-center mt-5 p-3 bg-light">
+    <small>&copy; 2025 TransPro System</small>
+  </footer>
 
 </body>
 
