@@ -140,10 +140,10 @@ $conn->close();
   <header>
     <div class="logo">TransPro</div>
     <nav>
-      <a class="active" href="#">Home</a>
-      <a href="#">Live Status</a>
+      <a class="active" href="index.php">Home</a>
+      <a href="live_status.php">Live Status</a>
       <a href="plan_trip.php">Plan Trip</a>
-      <a href="#">Contacts</a>
+      <a href="contacts.php">Contacts</a>
       <a href="login.php" class="btn btn-sm btn-outline-light ms-3">Logout</a>
     </nav>
     <img src="userlogo.png" class="user-icon" alt="User Icon">

@@ -97,10 +97,10 @@
   </div>
 
   <div class="navbar">
-    <a href="#">Home</a>
-    <a href="#">Live Status</a>
-    <a class="active" href="#">Plan Trip</a>
-    <a href="#">Contacts</a>
+    <a href="index.php">Home</a>
+    <a href="live_status.php">Live Status</a>
+    <a class="active" href="plan_trip.php">Plan Trip</a>
+    <a href="contacts.php">Contacts</a>
   </div>
 
   <div class="custom-container">
