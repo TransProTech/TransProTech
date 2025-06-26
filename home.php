@@ -127,7 +127,7 @@ $conn->close();
       <a href="live_status.php">Live Status</a>
       <a href="plan_trip.php">Plan Trip</a>
       <a href="contacts.php">Contacts</a>
-      <a href="logout.php" class="btn btn-sm btn-outline-light ms-3">Logout</a>
+         <a href="index.php" class="btn btn-sm btn-outline-light ms-3">Logout</a> 
     </nav>
     <img src="userlogo.png" class="user-icon" alt="User Icon">
   </header>

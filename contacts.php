@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="live_status.php">Live Status</a>
     <a href="plan_trip.php">Plan Trip</a>
     <a class="active" href="#">Contacts</a>
-    <a href="login.php" class="btn btn-sm btn-outline-light ms-3">Logout</a>
+  <a href="index.php" class="btn btn-sm btn-outline-light ms-3">Logout</a> 
   </nav>
   <img src="userlogo.png" class="user-icon" alt="User Icon">
 </header>

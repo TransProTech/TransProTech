@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login | TransPro</title>
+  <title>Login | TransProTech </title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="login-container">
     <div class="logo">
       <img src="userlogo.png" alt="Logo"> 
-      <h3>TransPro</h3>
+      <h3>TransProTech</h3>
     </div>
 
     <h4>Log In</h4>
