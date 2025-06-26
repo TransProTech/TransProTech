@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['userID'])) {
+    header("Location: login.php");
+    exit();
+}
+
 $liveUpdates = [
     "Bus 101 - Arriving in 4 minutes",
     "Moderate Traffic",
@@ -30,67 +36,45 @@ $liveUpdates = [
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            height: 100vh;
         }
 
         header {
+            background-color: #0d47a1;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #fff;
-            box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-            padding: 10px 20px;
+            color: white;
         }
 
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .logo-section img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 2px #203b80);
-            border-radius: 50%;
-            background: #dde2ea;
-        }
-
-        h1.logo-text {
-            font-weight: 900;
-            font-size: 1.75rem;
-            color: #273449;
-            letter-spacing: -0.015em;
-            text-shadow: 2px 2px 3px rgb(0 0 0 / 0.25);
-        }
-
-        .profile-icon img {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 2px #203b80);
-            border-radius: 50%;
-            background: #dde2ea;
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
         }
 
         nav {
-            background: #203b80;
-            justify-content: center;
             display: flex;
-            gap: 20px;
+            align-items: center;
+            gap: 15px;
         }
 
         nav a {
-            color: white;
             text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            font-weight: bold;
+            color: white;
         }
 
-        nav a:hover {
-            background-color: #00509e;
+        nav a.active {
+            background-color: #1976d2;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         .container {
@@ -121,21 +105,17 @@ $liveUpdates = [
 
 <body>
     <header>
-        <div class="logo-section" aria-label="TransPro logo and name">
-            <img src="./img/logo.png" alt="TransPro logo icon" />
-            <h1 class="logo-text">TransPro</h1>
-        </div>
-        <div class="profile-icon" role="img" aria-label="User profile icon">
-            <img src="./img/people.png" alt="TransPro user icon" />
-        </div>
+        <div class="logo">TransPro</div>
+        <nav>
+            <a href="index.php">Home</a>
+            <a class="active" href="live_status.php">Live Status</a>
+            <a href="plan_trip.php">Plan Trip</a>
+            <a href="contacts.php">Contacts</a>
+            <a href="login.php" class="btn btn-sm btn-outline-light ms-3">Logout</a>
+        </nav>
+        <img src="userlogo.png" class="user-icon" alt="User Icon">
     </header>
-    <nav>
-        <a class="active" href="index.php">Home</a>
-        <a href="live_status.php" style="background-color: #00509e;">Live Status</a>
-        <a href="plan_trip.php">Plan Trip</a>
-        <a href="contacts.php">Contacts</a>
-        <a href="login.php" class="btn btn-sm btn-outline-danger ms-3">Logout</a>
-    </nav>
+
     <div class="container d-flex flex-column align-items-center">
         <div class="row justify-content-center">
             <?php foreach ($liveUpdates as $update): ?>
@@ -150,7 +130,7 @@ $liveUpdates = [
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous">
-        </script>
+    </script>
 </body>
 
 </html>
