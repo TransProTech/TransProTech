@@ -1,204 +1,139 @@
 <?php
 session_start();
-if (!isset($_SESSION['userID'])) {
-  header("Location: login.php");
-  exit();
-}
-$conn = new mysqli("localhost", "root", "", "transpro");
-if ($conn->connect_error) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $conn = new mysqli("localhost", "root", "", "transpro");
+  if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}
-$cities = [];
-$sql = "SELECT DISTINCT fromLocation AS city FROM routes UNION SELECT DISTINCT toLocation AS city FROM routes";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $cities[] = $row['city'];
+  }
+
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+  $result = $conn->query($query);
+
+  if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+    $_SESSION['userID'] = $user['userID'];
+    $_SESSION['username'] = $user['username'];
+
+    if ($username === 'adminako') {
+      $_SESSION['isAdmin'] = true;
+      header("Location: admin_index.php");
+    } else {
+      $_SESSION['isAdmin'] = false;
+      header("Location: home.php");
     }
+    exit();
+  } else {
+    $error = "Invalid credentials.";
+  }
 }
-$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TransPro</title>
-  <link rel="icon" href="userlogo.png" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <meta charset="UTF-8">
+  <title>Login | TransPro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
       background: #f0f0f0;
-      background-image: url('img/transprobg.jpg');
-    }
-    header {
-      background-color: #0d47a1;
-      padding: 10px 20px;
       display: flex;
+      justify-content: center;
       align-items: center;
-      justify-content: space-between;
-      color: white;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+       background-image: url('img/transprobg.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
     }
+
+    .login-container {
+      background-color: #ddd;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 350px;
+    }
+
     .logo {
-      font-size: 26px;
-      font-weight: bold;
-    }
-    nav a {
-      margin: 0 10px;
-      text-decoration: none;
-      font-weight: bold;
-      color: white;
-    }
-    nav a.active {
-      background-color: #1976d2;
-      padding: 5px 10px;
-      border-radius: 5px;
-    }
-    .user-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-    #map {
-      height: 300px;
-      width: 90%;
-      margin: 20px auto;
-      border: 2px dashed #90caf9;
-      border-radius: 10px;
-    }
-    .box {
-      background: #1976d2;
-      color: white;
-      padding: 20px;
-      border-radius: 20px;
-      width: 200%;
-      max-width: 500px;
-    }
-    .transport div {
-      margin: 5px;
-      padding: 10px 20px;
-      border: none;
-      background: #64b5f6;
-      color: white;
-      cursor: pointer;
-      border-radius: 8px;
-      font-weight: regular;
-    }
-    .alerts div {
-      background: #64b5f6;
-      color: white;
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 8px;
-    }
-    .timestamp {
-      font-size: 12px;
-      color: white;
-      margin-top: 10px;
-    }
-    footer {
       text-align: center;
-      margin-top: 50px;
-      padding: 20px;
-      background-color: #e3f2fd;
+      margin-bottom: 20px;
     }
-    h3 {
-      color: rgb(255, 255, 255);
-      font-weight: bold;
+
+    .logo img {
+      width: 50px;
     }
-    h2 {
-      color:rgb(255, 255, 255);
+
+    .logo h3 {
+      margin-top: 10px;
       font-weight: bold;
+      color: #333;
     }
-    select, button {
+
+    .login-container h4 {
+      text-align: center;
+      margin-bottom: 20px;
       font-weight: bold;
+      color: #333;
+    }
+
+    .form-control {
+      border-radius: 8px;
+    }
+
+    .btn-primary {
+      border-radius: 8px;
+    }
+
+    .form-text-link {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    .form-text-link a {
+      text-decoration: none;
+      color: #333;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">TransPro</div>
-    <nav>
-      <a class="active" href="#">Home</a>
-      <a href="live_status.php">Live Status</a>
-      <a href="plan_trip.php">Plan Trip</a>
-      <a href="contacts.php">Contacts</a>
-      <a href="login.php" class="btn btn-sm btn-outline-light ms-3">Logout</a>
-    </nav>
-    <img src="userlogo.png" class="user-icon" alt="User Icon">
-  </header>
 
-    <h2 class="mt-4 d-flex justify-content-center">Live Map</h2>
-    <div id="map"></div>
+  <div class="login-container">
+    <div class="logo">
+      <img src="userlogo.png" alt="Logo"> 
+      <h3>TransPro</h3>
+    </div>
 
+    <h4>Log In</h4>
+    
+    <?php if (isset($error)): ?>
+      <div class="alert alert-danger"><?= $error ?></div>
+    <?php endif; ?>
 
-    <div class="row justify-content-center g-4 mt-4">
-      <div class="col-md-4 d-flex justify-content-center">
-        <div class="box text-center">
-          <h3>Type of Transportation</h3>
-          <div class="transport">
-            <div>Bus – Your Comfortable Ride Across Provinces
-            Buses offer a safe, spacious, and air-conditioned way to travel across cities and provinces. 
-            They're perfect for long-distance trips, daily commutes, and hassle-free travel on main roads.</div>
-            <div>Jeepney – The Iconic and Affordable Filipino Ride
-            Jeepneys are the heart of local transportation — colorful, affordable, and always part of the Filipino experience. 
-            They follow fixed routes but let you hop on and off almost anywhere, making them super convenient.</div>
-            <div>Tricycle – The Neighborhood Navigator
-            Tricycles are ideal for quick, short-distance rides within towns or barangays. 
-            Their flexibility and accessibility make them the best choice for last-mile travel.</div>
-          </div>
-        </div>
+    <form method="post">
+      <div class="mb-3">
+        <label for="username" class="form-label">Email</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
       </div>
-      <div class="col-md-4 d-flex justify-content-center">
-        <div class="box text-start">
-          <h3>Traffic & Service Alerts</h3>
-          <div class="alerts">
-            <div>LRT Line 1: Service temporarily suspended between Baclaran and EDSA.</div>
-            <div>Jeepney Route 12 delayed due to traffic congestion in España.</div>
-            <div>MRT Line 3 running on time.</div>
-          </div>
-          <div class="timestamp">Updated 5mins ago</div>
-        </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="**********" required>
       </div>
-    </div> 
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Log In</button>
+      </div>
+    </form>
+
+    <div class="form-text-link">
+      <a href="#">Forgot Password?</a>
+    </div>
   </div>
 
-  <footer class="text-center mt-5 p-3 bg-light">
-    <small>&copy; 2025 TransPro System</small>
-  </footer>
-
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    var map = L.map('map').setView([14.1, 121.3], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var lat = position.coords.latitude;
-        var lon = position.coords.longitude;
-
-        var inCalabarzon = (lat >= 13.6 && lat <= 14.5) && (lon >= 120.5 && lon <= 122.0);
-
-        if (inCalabarzon) {
-          map.setView([lat, lon], 13);
-          L.marker([lat, lon]).addTo(map)
-            .bindPopup("You are here!").openPopup();
-        } else {
-          alert("You are outside CALABARZON region.");
-        }
-      }, function(error) {
-        alert("Geolocation failed: " + error.message);
-      });
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  </script>
 </body>
 </html>

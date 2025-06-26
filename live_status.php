@@ -29,7 +29,7 @@ $jeepneyUpdates = [
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TransPro Live Status</title>
+  <title>TransProTech Live Status</title>
   <link rel="icon" href="userlogo.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <style>
@@ -126,9 +126,9 @@ $jeepneyUpdates = [
 
 <body>
   <header>
-    <div class="logo">TransPro</div>
+    <div class="logo">TransProTech</div>
     <nav>
-      <a href="index.php">Home</a>
+      <a href="home.php">Home</a>
       <a class="active" href="live_status.php">Live Status</a>
       <a href="plan_trip.php">Plan Trip</a>
       <a href="contacts.php">Contacts</a>
@@ -181,7 +181,7 @@ $jeepneyUpdates = [
   </div>
 
   <div class="footer">
-    <small>&copy; 2025 TransPro System</small>
+    <small>&copy; TransProTech</small>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
