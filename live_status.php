@@ -132,7 +132,7 @@ $liveUpdates = [
     <nav>
         <a class="active" href="index.php">Home</a>
         <a href="live_status.php" style="background-color: #00509e;">Live Status</a>
-        <a href="plan_trip">Plan Trip</a>
+        <a href="plan_trip.php">Plan Trip</a>
         <a href="contacts.php">Contacts</a>
         <a href="login.php" class="btn btn-sm btn-outline-danger ms-3">Logout</a>
     </nav>
