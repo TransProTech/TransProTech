@@ -142,7 +142,7 @@ $conn->close();
     <nav>
       <a class="active" href="#">Home</a>
       <a href="#">Live Status</a>
-      <a href="#">Plan Trip</a>
+      <a href="plan_trip.php">Plan Trip</a>
       <a href="#">Contacts</a>
       <a href="login.php" class="btn btn-sm btn-outline-light ms-3">Logout</a>
     </nav>
